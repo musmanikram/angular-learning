@@ -1,11 +1,24 @@
-var myApp = angular.module("myAppModule", ['ngRoute']);
+var myApp = angular.module("myAppModule", ['ngRoute', 'ngAnimate']);
 
-myApp.config(['$routeProvider', function ($routeProvider) {
+myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+
+    $locationProvider.html5Mode(true);
 
     $routeProvider
+        .when('/', {
+            templateUrl: 'views/home.html',
+            controller: 'myController'
+        })
         .when('/home', {
             templateUrl: 'views/home.html',
             controller: 'myController'
+        })
+        .when('/contact', {
+            templateUrl: 'views/contact.html',
+            controller: 'ContactController'
+        })
+        .when('/contact-success', {
+            templateUrl: 'views/contact-success.html'
         })
         .when('/directory', {
             templateUrl: 'views/directory.html',
@@ -13,6 +26,8 @@ myApp.config(['$routeProvider', function ($routeProvider) {
         }).otherwise({
             redirectTo: '/home'
         })
+
+
 
 }]);
 
@@ -24,6 +39,8 @@ myApp.directive('randomNinja', [function () {
                 title: '='
 
             },
+            transclude: true,
+            replace: true,
             templateUrl:'views/random.html',
             controller: function ($scope) {
 
@@ -31,7 +48,7 @@ myApp.directive('randomNinja', [function () {
                 
             }
         };
-}])
+}]);
 
 myApp.controller('myController', ['$scope', '$http', function ($scope, $http) {
 
@@ -40,7 +57,7 @@ myApp.controller('myController', ['$scope', '$http', function ($scope, $http) {
     $scope.removeNinja = function(ninja){
         var removedNinja = $scope.ninjas.indexOf(ninja);
         $scope.ninjas.splice(removedNinja, 1);
-    }
+    };
 
     $scope.addNinja = function(){
 
@@ -54,18 +71,31 @@ myApp.controller('myController', ['$scope', '$http', function ($scope, $http) {
         $scope.newninja.name = "";
         $scope.newninja.belt = "";
         $scope.newninja.rate = "";
-    }
+    };
+
+    $scope.removeAll = function(){
+        $scope.ninjas = [];
+    };
 
     /*$http.get('data/ninjas.json').success(function (data) {
 
     });*/
 
-    $http.get('http://localhost/~usman/angularjs/data/ninjas.json').then(function (response) {
+    $http.get('/data/ninjas.json').then(function (response) {
         $scope.ninjas = response.data;
         console.log(angular.toJson($scope.ninjas));
     });
 
 
+}]);
+
+
+myApp.controller('ContactController', ['$scope', '$location', function ($scope, $location) {
+    
+    $scope.sendMessage = function () {
+        $location.path("http://localhost/~usman/angularjs/contact-success");
+    }
+    
 }]);
 
 /*myAppModule.config(function () {
