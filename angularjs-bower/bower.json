@@ -1,0 +1,23 @@
+{
+  "name": "angularjs-bower",
+  "description": "practicing angular with npm and bower",
+  "main": "index.js",
+  "authors": [
+    "Usman <usman.ikram@codeinformatics.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/usman172/angularjs",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "angular": "^1.7.4",
+    "angular-route": "^1.7.4",
+    "jquery": "^3.3.1"
+  }
+}

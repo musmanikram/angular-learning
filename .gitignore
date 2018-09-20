@@ -1,3 +1,6 @@
 .idea
 access_log
 error_log
+package-lock.json
+angularjs-bower/bower_components
+angularjs-bower/node_modules
